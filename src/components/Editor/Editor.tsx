@@ -164,7 +164,7 @@ const Editor: FC<EditorProps> = ({ userId }) => {
 
     return (
 
-        <form id="subreddit-post-form" className="editor-form"
+        <form id="post-form" className="editor-form"
             onSubmit={onSubmit}
             action="submit">
 

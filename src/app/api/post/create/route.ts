@@ -23,7 +23,7 @@ export async function POST(req: Request) {
             data: {
                 content,
                 authorId: session.user.id,
-                
+
             }
         })
 
@@ -32,6 +32,6 @@ export async function POST(req: Request) {
         if (error instanceof z.ZodError)
             return new Response('Invalid data parsed', { status: 422 })
 
-        return new Response('Could not post to subreddit, try later', { status: 500 })
+        return new Response('Could not post , try later', { status: 500 })
     }
 }
