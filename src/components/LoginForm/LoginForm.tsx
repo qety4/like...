@@ -2,7 +2,7 @@
 
 import { FC, useState } from 'react'
 import { useToast } from '@/hooks/use-toast'
-import { signIn } from 'next-auth/react'
+import { signIn, signOut } from 'next-auth/react'
 import './loginForm.styles.scss'
 
 interface loginFormProps {
@@ -38,6 +38,9 @@ const LoginForm: FC<loginFormProps> = ({ }) => {
             </form>
             <button className="google-btn" onClick={loginWithGoogle}>
                 login with google
+            </button>
+            <button onClick={()=>signOut()}>
+                logout
             </button>
         </div>
     )

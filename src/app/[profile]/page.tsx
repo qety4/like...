@@ -1,9 +1,10 @@
 import { db } from '@/lib/db'
 import Image from 'next/image'
-import { FC, use } from 'react'
+import { FC } from 'react'
 import './profilePage.styles.scss'
 import SharePhoto from '@/components/SharePhoto/SharePhoto'
 import { getAuthSession } from '@/lib/auth'
+import { notFound } from 'next/navigation'
 
 interface PageProps {
     params: {
@@ -28,12 +29,14 @@ const Page: FC<PageProps> = async ({ params: { profile } }) => {
             }
         }
     })
+    if(!user)notFound()
 
     const ownerProfile = session?.user.id === user?.id
 
     console.log('userAcc db', user)
 
     return (
+
         <main className='profile-page'>
             <div className='profile'>
 
@@ -49,17 +52,22 @@ const Page: FC<PageProps> = async ({ params: { profile } }) => {
                         </span>
                     </div>
                     <section className='profile__header-text'>
-                        <p>
-                            name:{user?.name}
-                        </p>
-                        <p>
-                            username:{user?.username}
-                        </p>
+                        <div>
+                            {/* profile dashboard */}
+                            <p>
+                                name:{user?.name}
+                            </p>
+                            <p>
+                                username:{user?.username}
+                            </p>
+                        </div>
                     </section>
                 </header>
-                <div>
 
+                <div>
+                    {/* stories */}
                 </div>
+
                 <div className='profile__posts'>
                     {ownerProfile && !user?.posts.at(0) ?
                         <SharePhoto />

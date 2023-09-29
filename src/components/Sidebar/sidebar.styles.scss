@@ -1,0 +1,41 @@
+.sidebar-container {
+    width: 5.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    border-right: solid 1px rgba(0, 0, 0, 0.355) ;
+
+    .sidebar {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        width: fit-content;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2.5rem 1rem;
+
+        .sidebar__logo {
+            margin-bottom: 2rem;
+        }
+
+        .sidebar__redirect {
+            // height: 68vh;
+            height: 26rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32vh;
+            li{
+                height: fit-content;
+                width: fit-content;
+            }
+        }
+
+        .sidebar__menu-container {
+            margin-bottom: 3vh;
+
+        }
+    }
+}

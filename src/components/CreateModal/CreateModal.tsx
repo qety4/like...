@@ -14,7 +14,7 @@ const CreateModal: FC<CreateModalProps> = ({userId}) => {
                 <div className='createModal-panel'>
                     <h3>create new post</h3>
                     <div>
-                        {/* <Editor userId={userId}/> */}
+                        <Editor userId={userId}/>
                     </div>
                 </div>
             </section>
