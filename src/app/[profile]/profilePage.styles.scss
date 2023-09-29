@@ -1,0 +1,47 @@
+.profile-page{
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+.profile{
+    width: 90%;
+    height: 94%;
+    padding: 3% 5%;
+    .profile__header{
+        width: 100%;
+        height: 23vh;
+        display: flex;
+
+        .profile__image-container{
+            width: 25%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .profile__image{
+                width: 5rem;
+                height: 5rem;
+                position: relative;
+                img{
+                    border-radius: 50%;
+                }
+            }
+        }
+        .profile__header-text{
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+    }
+    .profile__posts{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 70vh;
+    }
+
+
+}

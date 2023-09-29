@@ -1,7 +1,7 @@
 
 import { FC } from 'react'
 import LoginForm from '@/components/LoginForm/LoginForm'
-import './loginPage.styles.scss'
+import './signInPage.styles.scss'
 
 interface pageProps {
 
@@ -10,7 +10,7 @@ interface pageProps {
 const page: FC<pageProps> = ({ }) => {
 
     return (
-        <main className='login-page'>
+        <main className='sign-in-page'>
             <LoginForm/>
         </main>
     )

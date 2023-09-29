@@ -38,20 +38,32 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-
 model User {
   id            String        @id @default(cuid())
   name          String?
   email         String?       @unique
   emailVerified DateTime?
+  createdAt     DateTime      @default(now())
   username      String?       @unique
   image         String?
+  bio           String        @default("")
   Account       Account[]
   Session       Session[]
-  posts          Post[]
-  comments       Comment[]
-  postLikes      PostLike[]
-  commentLikes   CommentLike[]
+  posts         Post[]
+  comments      Comment[]
+  postLikes     PostLike[]
+  commentLikes  CommentLike[]
+  followers     Follows[]     @relation("following")
+  following     Follows[]     @relation("follower")
+}
+
+model Follows {
+  user_follower  User   @relation("follower", fields: [followerId], references: [id])
+  user_following User   @relation("following", fields: [followingId], references: [id])
+  followerId     String
+  followingId    String
+
+  @@id([followerId, followingId])
 }
 
 model Post {
