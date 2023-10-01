@@ -14,8 +14,10 @@ export const metadata: Metadata = {
 }
 export default async function RootLayout({
   children,
+  createModal
 }: {
-  children: React.ReactNode
+  children: React.ReactNode,
+  createModal:React.ReactNode
 }) {
 
   return (
@@ -25,6 +27,7 @@ export default async function RootLayout({
           <Sidebar />
           <div className='mainPage'>
             {children}
+            {createModal}
           </div>
         </Providers>
       </body>

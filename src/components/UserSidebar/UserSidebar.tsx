@@ -16,7 +16,7 @@ const UserSidebar: FC<UserSidebarProps> = ({ user }) => {
     console.log('user sidebar',user)
     return (
         <span className='userSidebar-container'>
-            {!!user ?
+            {user ?
                 (
                     <Link className="user" href={`${user.username}`}>
                         <Image src={`${user.image}`} alt='profile picture' width={30} height={30}

@@ -21,15 +21,19 @@
 
         .sidebar__redirect {
             // height: 68vh;
-            height: 26rem;
+            height: 28rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 32vh;
+            margin-bottom: 13vh;
             li{
-                height: fit-content;
+                height: 1.1em;
                 width: fit-content;
+                svg{
+                    height: 1.8em;
+                    width: 1.8em;
+                }
             }
         }
 

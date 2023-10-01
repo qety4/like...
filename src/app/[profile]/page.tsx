@@ -2,9 +2,10 @@ import { db } from '@/lib/db'
 import Image from 'next/image'
 import { FC } from 'react'
 import './profilePage.styles.scss'
-import SharePhoto from '@/components/SharePhoto/SharePhoto'
 import { getAuthSession } from '@/lib/auth'
 import { notFound } from 'next/navigation'
+import { Camera, PlusCircle } from 'lucide-react'
+import Link from 'next/link'
 
 interface PageProps {
     params: {
@@ -29,7 +30,7 @@ const Page: FC<PageProps> = async ({ params: { profile } }) => {
             }
         }
     })
-    if(!user)notFound()
+    if (!user) notFound()
 
     const ownerProfile = session?.user.id === user?.id
 
@@ -70,7 +71,19 @@ const Page: FC<PageProps> = async ({ params: { profile } }) => {
 
                 <div className='profile__posts'>
                     {ownerProfile && !user?.posts.at(0) ?
-                        <SharePhoto />
+                        <>
+                            <div className='sharePhoto-container'>
+                                <span className='cameraIcon'>
+                                    <Camera />
+                                </span>
+                                <span className='sharePhoto__text'>
+                                    <h3>add post</h3>
+                                    <Link href='create'>
+                                        <PlusCircle />
+                                    </Link>
+                                </span>
+                            </div>
+                        </>
                         :
                         <div>
                             {/* User Posts Display */}

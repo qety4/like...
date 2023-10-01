@@ -1,18 +1,16 @@
 import { FC } from 'react'
 import { Logo } from './three-dots-svg'
 import './sidebar.styles.scss'
-import { Menu } from 'lucide-react'
 import { Circle } from 'lucide-react'
 import { PlusCircle } from 'lucide-react';
 import { Heart } from 'lucide-react';
-
 import { Send } from 'lucide-react';
 import { Compass } from 'lucide-react';
-
 import Link from 'next/link'
 import { getAuthSession } from '@/lib/auth'
 import UserSidebar from '../UserSidebar/UserSidebar'
 import { db } from '@/lib/db'
+import SideMenu from '../SideMenu/SideMenu';
 
 
 interface SidebarProps {
@@ -24,11 +22,11 @@ const Sidebar: FC<SidebarProps> = async ({ }) => {
 
     const user = session ? await db.user.findFirst({
         where: {
-            id : session?.user.id 
+            id: session?.user.id
         }
     })
-    : null
-    
+        : null
+
     console.log('session sidebar', user)
 
     return (
@@ -63,7 +61,7 @@ const Sidebar: FC<SidebarProps> = async ({ }) => {
                         <Link href=""><Heart /></Link>
                     </li>
                     <li>
-                        <Link href=""><PlusCircle /></Link>
+                        <Link href="create"><PlusCircle /></Link>
                     </li>
                     <li>
                         <UserSidebar user={user} />
@@ -71,7 +69,13 @@ const Sidebar: FC<SidebarProps> = async ({ }) => {
                 </ul>
 
                 <div className='sidebar__menu-container'>
-                    <Menu />
+                    {user ?
+                        <SideMenu />
+                        :
+                        <>
+                        </>
+                    }
+
                 </div>
 
             </div>

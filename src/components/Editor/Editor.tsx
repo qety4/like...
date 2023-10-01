@@ -69,19 +69,19 @@ const Editor: FC<EditorProps> = ({ userId }) => {
                         config: {
                             uploader: {
                                 async uploadByFile(file: File) {
-                                    const [res] = await uploadFiles([file])
+                                    const [res] = await uploadFiles([file], 'imageUploader')
 
                                     return {
                                         success: 1,
                                         file: {
-                                            url: res.fileUrl
+                                            url: res.fileUrl,
                                         }
                                     }
                                 }
                             }
                         },
                     },
-
+                    
                     list: List,
                     code: Code,
                     inlineCode: InlineCode,
