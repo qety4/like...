@@ -12,10 +12,11 @@ interface PostProps {
         author: User,
         likes: PostLike[],
         comments: Comment[]
-    }
+    },
+    initialLike: boolean
 }
 
-const Post: FC<PostProps> = ({ post }) => {
+const Post: FC<PostProps> = ({ post,initialLike }) => {
 
     console.log('Post Post', post)
     return (
@@ -42,7 +43,7 @@ const Post: FC<PostProps> = ({ post }) => {
                 <div>
                     <div>
                         {/* {interaction svgs} */}
-                        <PostLikesClient postId={post.id}  />
+                        <PostLikesClient initialLike={initialLike} initialLikesAmt={post.likes.length} postId={post.id}  />
                     </div>
 
                     <span>

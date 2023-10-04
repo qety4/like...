@@ -39,7 +39,7 @@ const Page: FC<PageProps> = async ({ params: { profile, post } }) => {
         <main>
             {/* {intersecting routes and post modal component} */}
             <div>
-                {/* latest user posts usePagePosts component*/}
+                {/* latest user posts userPagePosts component*/}
             </div>
         </main>
     )

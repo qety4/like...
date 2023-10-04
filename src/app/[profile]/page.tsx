@@ -25,6 +25,9 @@ const Page: FC<PageProps> = async ({ params: { profile } }) => {
         include: {
             posts: {
                 take: INFINITE_SCROLLING_PAGINATION_RESULTS,
+                orderBy: {
+                    createdAt: 'desc',
+                },
                 include: {
                     author: true,
                     likes: true,
@@ -90,7 +93,7 @@ const Page: FC<PageProps> = async ({ params: { profile } }) => {
                         </div>
 
                         :
-                        <UserPagePosts session={session} initialPosts={user.posts} userId={user.id} />
+                        <UserPagePosts session={session} initialPosts={user.posts} profileId={user.id} />
                     }
                 </div>
             </div>

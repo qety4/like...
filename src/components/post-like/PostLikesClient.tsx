@@ -6,7 +6,7 @@ import { FC, useEffect, useState } from 'react'
 interface PostLikesClientProps {
     postId: string,
     initialLikesAmt: number,
-    initialLike?: Like
+    initialLike: boolean 
 }
 
 const PostLikesClient: FC<PostLikesClientProps> = ({ postId, initialLikesAmt, initialLike }) => {

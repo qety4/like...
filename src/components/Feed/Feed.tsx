@@ -1,20 +1,22 @@
 'use client'
-import { FC, useRef } from 'react'
+import { FC, useRef, Suspense } from 'react'
 import './feed.styles.scss'
 import { ExtendedPost } from '@/types/db'
 import { useIntersection } from '@mantine/hooks'
 import Post from '../Post/Post'
 import { Session } from 'next-auth'
 import { PostLike } from '@prisma/client'
+import { useInfiniteQuery } from '@tanstack/react-query'
+import { INFINITE_SCROLLING_PAGINATION_RESULTS } from '@/lib/utils'
+import axios from 'axios'
 
 
-interface UserPageFeedProps {
+interface FeedProps {
     initialPosts: ExtendedPost[],
-    profile: string,
     session: Session | null
 }
 
-const UserPageFeed: FC<UserPageFeedProps> = ({ initialPosts, profile,session }) => {
+const Feed: FC<FeedProps> = ({ initialPosts, session }) => {
 
     console.log('initialPosts', initialPosts)
     const lastPostRef = useRef<HTMLLIElement>(null)
@@ -26,25 +28,21 @@ const UserPageFeed: FC<UserPageFeedProps> = ({ initialPosts, profile,session }) 
 
 
 
-    // const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
-    //     ['infinite-query'],
-    //     async ({ pageParam = 1 }) => {
-    //         const query = `/api/posts?limit=${INFINITE_SCROLLING_PAGINATION_RESULTS}&page=${pageParam}` +
-    //             (!!userId ? `&userId=${userId}` : '')
+    const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
+        ['infinite-query'],
+        async ({ pageParam = 1 }) => {
+            const query = `/api/posts?limit=${INFINITE_SCROLLING_PAGINATION_RESULTS}&page=${pageParam}`
+            const { data } = await axios.get(query)
 
-    //         const { data } = await axios.get(query)
-
-    //         return data as ExtendedPost[]
-    //     },
-    //     {
-    //         getNextPageParam: (_, pages) => {
-    //             console.log('last page', _)
-    //             console.log('pages', pages)
-    //             return pages.length + 1
-    //         },
-    //         initialData: { pages: [initialPosts], pageParams: [1] },
-    //     }
-    // )
+            return data as ExtendedPost[]
+        },
+        {
+            getNextPageParam: (_, pages) => {
+                return pages.length + 1
+            },
+            initialData: { pages: [initialPosts], pageParams: [1] },
+        }
+    )
     // fetchNextPage()
 
     const posts =
@@ -52,33 +50,42 @@ const UserPageFeed: FC<UserPageFeedProps> = ({ initialPosts, profile,session }) 
         initialPosts
 
     return (
-        <ul className='userPageFeed'>
+        <main>
+            <div>
+                {/* feed switch */}
+            </div>
 
-            {
-                posts.map((post, index) => {
+            <ul className='Feed'>
 
-                    const current = post.likes?.find((like: PostLike) => like.userId === session?.user.id)
+                {
+                    posts.map((post, index) => {
 
-                    if (index === posts.length - 1) {
-                        return (
-                            <li key={post.id} ref={ref}>
-                                <Post post={post} />
-                            </li>
-                        )
-                    } else {
-                        return (
-                            <li key={post.id}>
-                                <Post post={post} />
-                            </li>
-                        )
-                    }
+                        const current = post.likes?.find((like: PostLike) => like.userId === session?.user.id)
 
-                })
-            }
-        </ul>
+                        if (index === posts.length - 1) {
+                            return (
+                                <li key={post.id} ref={ref}>
+                                    <Suspense>
+                                        <Post initialLike={!!current} post={post} />
+                                    </Suspense>
+                                </li>
+                            )
+                        } else {
+                            return (
+                                <li key={post.id}>
+                                    <Post initialLike={!!current} post={post} />
+                                </li>
+                            )
+                        }
+
+                    })
+                }
+            </ul>
+            
+        </main>
 
     )
 
 }
 
-export default UserPageFeed
+export default Feed

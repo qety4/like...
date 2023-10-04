@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export const INFINITE_SCROLLING_PAGINATION_RESULTS= 10
+export const INFINITE_SCROLLING_PAGINATION_RESULTS= 2
 
 
 const formatDistanceLocale = {
