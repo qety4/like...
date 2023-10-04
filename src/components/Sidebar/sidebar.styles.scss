@@ -5,7 +5,7 @@
     align-items: center;
     height: 100vh;
     border-right: solid 1px rgba(0, 0, 0, 0.355) ;
-
+    position: fixed;
     .sidebar {
         display: flex;
         flex-direction: column;

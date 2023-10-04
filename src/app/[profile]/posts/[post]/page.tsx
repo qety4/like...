@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import './profilePosts.styles.scss'
-import UserPageFeed from '@/components/UserPageFeed/UserPageFeed'
+import UserPageFeed from '@/components/Feed/Feed'
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
 import { notFound } from 'next/navigation'
@@ -8,11 +8,12 @@ import { INFINITE_SCROLLING_PAGINATION_RESULTS } from '@/lib/utils'
 
 interface PageProps {
     params: {
+        post: string,
         profile: string
     }
 }
 
-const Page: FC<PageProps> = async ({ params: { profile } }) => {
+const Page: FC<PageProps> = async ({ params: { profile, post } }) => {
 
     const session = await getAuthSession()
 
@@ -36,11 +37,9 @@ const Page: FC<PageProps> = async ({ params: { profile } }) => {
 
     return (
         <main>
-            <header>
-                {/* user info component */}
-            </header>
+            {/* {intersecting routes and post modal component} */}
             <div>
-                <UserPageFeed session={session} profile={profile} initialPosts={user.posts} />
+                {/* latest user posts usePagePosts component*/}
             </div>
         </main>
     )

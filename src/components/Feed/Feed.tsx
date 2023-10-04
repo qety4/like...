@@ -1,11 +1,11 @@
 'use client'
 import { FC, useRef } from 'react'
-import './userPageFeed.styles.scss'
+import './feed.styles.scss'
 import { ExtendedPost } from '@/types/db'
 import { useIntersection } from '@mantine/hooks'
 import Post from '../Post/Post'
-import { PostLike } from '@prisma/client'
 import { Session } from 'next-auth'
+import { PostLike } from '@prisma/client'
 
 
 interface UserPageFeedProps {
@@ -52,12 +52,12 @@ const UserPageFeed: FC<UserPageFeedProps> = ({ initialPosts, profile,session }) 
         initialPosts
 
     return (
-        <ul>
+        <ul className='userPageFeed'>
 
             {
                 posts.map((post, index) => {
 
-                    // const current = post.likes?.find((like: PostLike) => like.userId === session?.user.id)
+                    const current = post.likes?.find((like: PostLike) => like.userId === session?.user.id)
 
                     if (index === posts.length - 1) {
                         return (

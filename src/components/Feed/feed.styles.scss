@@ -1,0 +1,11 @@
+.userPageFeed{
+    margin-left: 5.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 10vh;
+    li{
+        width: 50vw;
+    }
+}

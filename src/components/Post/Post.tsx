@@ -1,15 +1,17 @@
-import { FC } from 'react'
+import { FC, Suspense } from 'react'
 import './post.styles.scss'
 import EditorOutput from '../EditorOutput/EditorOutput'
-import { Post, PostLike, User } from '@prisma/client'
+import { Comment, Post, PostLike, User } from '@prisma/client'
 import Image from 'next/image'
 import { formatTimeToNow } from '@/lib/utils'
+import PostLikesClient from '../post-like/PostLikesClient'
 
 
 interface PostProps {
     post: Post & {
         author: User,
-        like: PostLike[]
+        likes: PostLike[],
+        comments: Comment[]
     }
 }
 
@@ -31,12 +33,27 @@ const Post: FC<PostProps> = ({ post }) => {
                 </span>
                 {' '}
 
-                <div>
-                    <EditorOutput content={post.content} />
+                <div className='editorOutput'>
+                    <Suspense fallback={<div style={{ width: '500px', height: '500px' }}>loading</div>}>
+                        <EditorOutput content={post.content} />
+                    </Suspense>
                 </div>
 
                 <div>
-                    
+                    <div>
+                        {/* {interaction svgs} */}
+                        <PostLikesClient postId={post.id}  />
+                    </div>
+
+                    <span>
+                        <p>
+                            {post.author.username}
+                        </p>
+                    </span>
+                    <p>...</p>
+                    <div>
+                        <p>view {post.comments.length} comments</p>
+                    </div>
                 </div>
             </div>
         </section>
