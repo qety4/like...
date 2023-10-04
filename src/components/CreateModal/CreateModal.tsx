@@ -18,6 +18,9 @@ const CreateModal: FC<CreateModalProps> = ({ userId }) => {
                 <div className='createModal-panel'>
                     <Editor userId={userId} />
                 </div>
+                <button type='submit' className='createBtn' form='post-form'>
+                    create Post
+                </button>
             </section>
         </div>
     )

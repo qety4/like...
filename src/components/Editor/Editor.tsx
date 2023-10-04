@@ -144,8 +144,8 @@ const Editor: FC<EditorProps> = ({ userId }) => {
     })
 
 
-    async function onSubmit() {
-
+    async function onSubmit(e:React.FormEvent) {
+        e.preventDefault()
         const blocks = await ref.current?.save()
 
         const payload: PostCreationRequest = {

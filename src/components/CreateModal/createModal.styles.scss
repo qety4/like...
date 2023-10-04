@@ -11,6 +11,7 @@
     right: 0;
     left: 0;
     pointer-events: none;
+
     .createModal {
         pointer-events: all;
         width: 80%;
@@ -33,7 +34,8 @@
             justify-content: center;
             align-items: center;
             border-bottom: 1px solid black;
-            h3{
+
+            h3 {
                 letter-spacing: 0.1rem;
                 margin-top: 0.3rem;
             }
@@ -42,8 +44,13 @@
         .createModal-panel {
             position: relative;
             width: 80%;
+            overflow: scroll;
             height: 100%;
 
+        }
+
+        .createBtn {
+            border: solid 1px black;
         }
     }
 }

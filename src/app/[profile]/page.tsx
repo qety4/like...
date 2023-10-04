@@ -6,6 +6,8 @@ import { getAuthSession } from '@/lib/auth'
 import { notFound } from 'next/navigation'
 import { Camera, PlusCircle } from 'lucide-react'
 import Link from 'next/link'
+import UserPagePosts from '@/components/UserPagePosts/UserPagePosts'
+import { INFINITE_SCROLLING_PAGINATION_RESULTS } from '@/lib/utils'
 
 interface PageProps {
     params: {
@@ -22,6 +24,7 @@ const Page: FC<PageProps> = async ({ params: { profile } }) => {
         },
         include: {
             posts: {
+                take: INFINITE_SCROLLING_PAGINATION_RESULTS,
                 include: {
                     author: true,
                     likes: true,
@@ -30,6 +33,7 @@ const Page: FC<PageProps> = async ({ params: { profile } }) => {
             }
         }
     })
+
     if (!user) notFound()
 
     const ownerProfile = session?.user.id === user?.id
@@ -71,8 +75,8 @@ const Page: FC<PageProps> = async ({ params: { profile } }) => {
 
                 <div className='profile__posts'>
                     {ownerProfile && !user?.posts.at(0) ?
-                        <>
-                            <div className='sharePhoto-container'>
+                        <div className='sharePhoto-container'>
+                            <div className='sharePhoto'>
                                 <span className='cameraIcon'>
                                     <Camera />
                                 </span>
@@ -83,12 +87,10 @@ const Page: FC<PageProps> = async ({ params: { profile } }) => {
                                     </Link>
                                 </span>
                             </div>
-                        </>
-                        :
-                        <div>
-                            {/* User Posts Display */}
-                            user posts
                         </div>
+
+                        :
+                        <UserPagePosts session={session} initialPosts={user.posts} userId={user.id} />
                     }
                 </div>
             </div>
